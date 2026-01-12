@@ -96,6 +96,12 @@ func TestTxnFail(t *testing.T) {
 			ifFail:        []string{`put key1 "fail"`},
 			expectResults: []string{"FAILURE", "OK"},
 		},
+		{
+			compare:       []string{`lease("key1") > "0"`},
+			ifSuccess:     []string{`put key1 "success"`},
+			ifFail:        []string{`put key1 "fail"`},
+			expectResults: []string{"FAILURE", "OK"},
+		},
 	}
 	for _, cfg := range clusterTestCases() {
 		t.Run(cfg.name, func(t *testing.T) {
