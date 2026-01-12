@@ -56,6 +56,12 @@ func TestTxnSucc(t *testing.T) {
 			ifSuccess:     []string{`get "key \"with\" space"`},
 			expectResults: []string{"SUCCESS", `key "with" space`, "value \x23"},
 		},
+		{
+			compare:       []string{`lease("key1") = "0"`},
+			ifSuccess:     []string{`put key1 "success"`},
+			ifFail:        []string{`put key1 "fail"`},
+			expectResults: []string{"SUCCESS", "OK"},
+		},
 	}
 	for _, cfg := range clusterTestCases() {
 		t.Run(cfg.name, func(t *testing.T) {
